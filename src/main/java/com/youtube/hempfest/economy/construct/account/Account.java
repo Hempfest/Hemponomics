@@ -18,9 +18,9 @@ import org.bukkit.OfflinePlayer;
  */
 public abstract class Account extends Balance {
 
-	private final AccountType accountType;
+	protected final AccountType accountType;
 
-	private final List<String> members;
+	protected final List<String> members;
 
 	public Account(AccountType accountType, EconomyEntity holder, EconomyEntity... members) {
 		super(holder);
