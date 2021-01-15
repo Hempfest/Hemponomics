@@ -1,5 +1,6 @@
 package com.youtube.hempfest.economy;
 
+import com.youtube.hempfest.economy.construct.entity.EconomyEntity;
 import com.youtube.hempfest.economy.construct.implement.AdvancedEconomy;
 import com.youtube.hempfest.economy.construct.EconomyAction;
 import com.youtube.hempfest.economy.construct.account.Wallet;
@@ -66,7 +67,9 @@ public final class Hemponomics extends JavaPlugin {
 		@EventHandler
 		public void onInfoEvent(AsyncEconomyInfoEvent e) {
 			final EconomyAction economyAction = e.getEconomyAction();
-			getInstance().getLogger().info(String.format("EconomyEntity: %s [%s] Info: %s",
+			final Class<? extends EconomyEntity> aClass = economyAction.getActiveHolder().getClass();
+			getInstance().getLogger().info(String.format("%s: %s [%s] Info: %s",
+					!aClass.isAnonymousClass() ? aClass.getSimpleName() : aClass.getSuperclass().getSimpleName(),
 					economyAction.getActiveHolder().friendlyName(),
 					economyAction.isSuccess(),
 					economyAction.getInfo()));
@@ -75,7 +78,9 @@ public final class Hemponomics extends JavaPlugin {
 		@EventHandler
 		public void onInfoEvent(AsyncTransactionEvent e) {
 			final EconomyAction economyAction = e.getEconomyAction();
-			getInstance().getLogger().info(String.format("EconomyEntity: %s [%s] Amount: %s Info: %s",
+			final Class<? extends EconomyEntity> aClass = economyAction.getActiveHolder().getClass();
+			getInstance().getLogger().info(String.format("%s: %s [%s] Amount: %s Info: %s",
+					!aClass.isAnonymousClass() ? aClass.getSimpleName() : aClass.getSuperclass().getSimpleName(),
 					economyAction.getActiveHolder().friendlyName(),
 					economyAction.isSuccess(),
 					economyAction.getAmount(),
