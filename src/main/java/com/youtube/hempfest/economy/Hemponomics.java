@@ -68,7 +68,7 @@ public final class Hemponomics extends JavaPlugin {
 		public void onInfoEvent(AsyncEconomyInfoEvent e) {
 			final EconomyAction economyAction = e.getEconomyAction();
 			final Class<? extends EconomyEntity> aClass = economyAction.getActiveHolder().getClass();
-			getInstance().getLogger().info(String.format("%s: %s [%s] Info: %s",
+			JavaPlugin.getProvidingPlugin(aClass).getLogger().info(String.format("%s: %s [%s] Info: %s",
 					!aClass.isAnonymousClass() ? aClass.getSimpleName() : aClass.getSuperclass().getSimpleName(),
 					economyAction.getActiveHolder().friendlyName(),
 					economyAction.isSuccess(),
@@ -79,7 +79,7 @@ public final class Hemponomics extends JavaPlugin {
 		public void onInfoEvent(AsyncTransactionEvent e) {
 			final EconomyAction economyAction = e.getEconomyAction();
 			final Class<? extends EconomyEntity> aClass = economyAction.getActiveHolder().getClass();
-			getInstance().getLogger().info(String.format("%s: %s [%s] Amount: %s Info: %s",
+			JavaPlugin.getProvidingPlugin(aClass).getLogger().info(String.format("%s: %s [%s] Amount: %s Info: %s",
 					!aClass.isAnonymousClass() ? aClass.getSimpleName() : aClass.getSuperclass().getSimpleName(),
 					economyAction.getActiveHolder().friendlyName(),
 					economyAction.isSuccess(),
