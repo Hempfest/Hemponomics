@@ -1,8 +1,6 @@
 package com.youtube.hempfest.economy;
 
-import com.youtube.hempfest.economy.construct.entity.EconomyEntity;
 import com.youtube.hempfest.economy.construct.implement.AdvancedEconomy;
-import com.youtube.hempfest.economy.construct.EconomyAction;
 import com.youtube.hempfest.economy.construct.account.Wallet;
 import com.youtube.hempfest.economy.construct.account.permissive.AccountType;
 import java.lang.reflect.Field;
@@ -21,6 +19,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -64,27 +63,14 @@ public final class Hemponomics extends JavaPlugin {
 	}
 
 	private static class LoggingListener implements Listener {
-		@EventHandler
+		@EventHandler(priority = EventPriority.MONITOR)
 		public void onInfoEvent(AsyncEconomyInfoEvent e) {
-			final EconomyAction economyAction = e.getEconomyAction();
-			final Class<? extends EconomyEntity> aClass = economyAction.getActiveHolder().getClass();
-			JavaPlugin.getProvidingPlugin(aClass).getLogger().info(String.format("%s: %s [%s] Info: %s",
-					!aClass.isAnonymousClass() ? aClass.getSimpleName() : aClass.getSuperclass().getSimpleName(),
-					economyAction.getActiveHolder().friendlyName(),
-					economyAction.isSuccess(),
-					economyAction.getInfo()));
+			e.getProvidingPlugin().getLogger().info(e.getConsoleOutput());
 		}
 
-		@EventHandler
+		@EventHandler(priority = EventPriority.MONITOR)
 		public void onInfoEvent(AsyncTransactionEvent e) {
-			final EconomyAction economyAction = e.getEconomyAction();
-			final Class<? extends EconomyEntity> aClass = economyAction.getActiveHolder().getClass();
-			JavaPlugin.getProvidingPlugin(aClass).getLogger().info(String.format("%s: %s [%s] Amount: %s Info: %s",
-					!aClass.isAnonymousClass() ? aClass.getSimpleName() : aClass.getSuperclass().getSimpleName(),
-					economyAction.getActiveHolder().friendlyName(),
-					economyAction.isSuccess(),
-					economyAction.getAmount(),
-					economyAction.getInfo()));
+			e.getProvidingPlugin().getLogger().info(e.getConsoleOutput());
 		}
 	}
 

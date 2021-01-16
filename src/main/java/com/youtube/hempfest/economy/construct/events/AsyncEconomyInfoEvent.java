@@ -1,21 +1,24 @@
 package com.youtube.hempfest.economy.construct.events;
 
 import com.youtube.hempfest.economy.construct.EconomyAction;
-import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public final class AsyncEconomyInfoEvent extends Event {
+public final class AsyncEconomyInfoEvent extends AsyncEconomyActionEvent {
 
     private static final HandlerList HANDLERS = new HandlerList();
-    private final EconomyAction economyAction;
 
     public AsyncEconomyInfoEvent(EconomyAction economyAction) {
-        super(true);
-        this.economyAction = economyAction;
+        super(economyAction);
     }
 
-    public EconomyAction getEconomyAction() {
-        return economyAction;
+    @Override
+    public String getConsoleOutput() {
+        if (outText != null) return super.getConsoleOutput();
+        return String.format("%s: %s [%s] Info: %s",
+                entityType,
+                economyAction.getActiveHolder().friendlyName(),
+                economyAction.isSuccess(),
+                economyAction.getInfo());
     }
 
     @Override
