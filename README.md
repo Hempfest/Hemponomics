@@ -17,7 +17,7 @@ A more advanced vault like economy interface.
   	<dependency>
 	    <groupId>com.github.Hempfest</groupId>
 	    <artifactId>Hemponomics</artifactId>
-	    <version>1.3-pre</version>
+	    <version>1.3</version>
 	</dependency>
 ```
 ### Importing with gradle
